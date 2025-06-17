@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Avançada</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js"></script>
 </head>
 <body>
     <div class="calculator">
@@ -50,12 +51,12 @@
             <div class="stat-type-selector">
                 <h3>Selecione o tipo de cálculo:</h3>
                 <div class="stat-options">
-    <button class="stat-option-btn" data-stat-type="mean-ci">IC para Média</button>
-    <button class="stat-option-btn" data-stat-type="prop-ci">IC para Proporção</button>
-    <button class="stat-option-btn" data-stat-type="sample-mean">Amostra para Média</button>
-    <button class="stat-option-btn" data-stat-type="sample-prop">Amostra para Proporção</button>
-    <button class="stat-option-btn" data-stat-type="error-diff">Diferença de Erros</button>
-</div>
+                    <button class="stat-option-btn" data-stat-type="mean-ci">IC para Média</button>
+                    <button class="stat-option-btn" data-stat-type="prop-ci">IC para Proporção</button>
+                    <button class="stat-option-btn" data-stat-type="sample-mean">Amostra para Média</button>
+                    <button class="stat-option-btn" data-stat-type="sample-prop">Amostra para Proporção</button>
+                    <button class="stat-option-btn" data-stat-type="error-diff">Diferença de Erros</button>
+                </div>
             </div>
             
             <div class="stat-form hidden" id="mean-ci-form">
@@ -80,11 +81,11 @@
                         <option value="2.576">99%</option>
                     </select>
                 </div>
-                <button class="stat-btn" onclick="calculateMeanCI()">Calcular</button>
+                <button class="stat-btn" id="calculateMeanCI">Calcular</button>
                 <div class="result-box" id="meanResult">
                     <div class="result-content"></div>
                 </div>
-                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+                <button class="stat-btn back-btn" id="backFromMeanCI">Voltar</button>
             </div>
             
             <div class="stat-form hidden" id="prop-ci-form">
@@ -105,11 +106,11 @@
                         <option value="2.576">99%</option>
                     </select>
                 </div>
-                <button class="stat-btn" onclick="calculatePropCI()">Calcular</button>
+                <button class="stat-btn" id="calculatePropCI">Calcular</button>
                 <div class="result-box" id="propResult">
                     <div class="result-content"></div>
                 </div>
-                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+                <button class="stat-btn back-btn" id="backFromPropCI">Voltar</button>
             </div>
             
             <div class="stat-form hidden" id="sample-mean-form">
@@ -130,11 +131,11 @@
                         <option value="2.576">99%</option>
                     </select>
                 </div>
-                <button class="stat-btn" onclick="calculateSampleSizeMean()">Calcular</button>
+                <button class="stat-btn" id="calculateSampleSizeMean">Calcular</button>
                 <div class="result-box" id="sampleSizeMeanResult">
                     <div class="result-content"></div>
                 </div>
-                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+                <button class="stat-btn back-btn" id="backFromSampleMean">Voltar</button>
             </div>
             
             <div class="stat-form hidden" id="sample-prop-form">
@@ -155,32 +156,30 @@
                         <option value="2.576">99%</option>
                     </select>
                 </div>
-                <button class="stat-btn" onclick="calculateSampleSizeProp()">Calcular</button>
+                <button class="stat-btn" id="calculateSampleSizeProp">Calcular</button>
                 <div class="result-box" id="sampleSizePropResult">
                     <div class="result-content"></div>
                 </div>
-                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+                <button class="stat-btn back-btn" id="backFromSampleProp">Voltar</button>
             </div>
 
             <div class="stat-form hidden" id="error-diff-form">
                 <h3>Cálculo de Diferença de Erros</h3>
                 <div class="form-group">
-        <label for="calculatedError">Margem de Erro Calculada</label>
-        <input type="number" id="calculatedError" step="any" min="0">
-    </div>
-    <div class="form-group">
-        <label for="desiredError">Erro Pretendido</label>
-        <input type="number" id="desiredError" step="any" min="0">
-    </div>
-    <button class="stat-btn" onclick="calculateErrorDifference()">Calcular Diferença</button>
-    <div class="result-box" id="errorDiffResult">
-        <div class="result-content"></div>
-    </div>
-    <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
-</div>
+                    <label for="calculatedError">Margem de Erro Calculada</label>
+                    <input type="number" id="calculatedError" step="any" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="desiredError">Erro Pretendido</label>
+                    <input type="number" id="desiredError" step="any" min="0">
+                </div>
+                <button class="stat-btn" id="calculateErrorDifference">Calcular Diferença</button>
+                <div class="result-box" id="errorDiffResult">
+                    <div class="result-content"></div>
+                </div>
+                <button class="stat-btn back-btn" id="backFromErrorDiff">Voltar</button>
+            </div>
         </div>
     </div>
-
-    <script src="../js/script.js"></script>
 </body>
 </html>
