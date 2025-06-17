@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Avançada</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="calculator">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="basic">Básica</button>
+            <button class="tab-btn" data-tab="stats">Estatística</button>
+        </div>
+        
+        <div class="display">
+            <div class="previous-operand" id="previous-operand"></div>
+            <div class="current-operand" id="current-operand">0</div>
+        </div>
+        
+        <div class="tab-content active" id="basic">
+            <div class="buttons">
+                <button class="gray" id="clear">AC</button>
+                <button class="gray" id="toggle-sign">+/-</button>
+                <button class="gray" id="percentage">%</button>
+                <button class="orange" id="divide">÷</button>
+                
+                <button class="dark-gray" id="seven">7</button>
+                <button class="dark-gray" id="eight">8</button>
+                <button class="dark-gray" id="nine">9</button>
+                <button class="orange" id="multiply">×</button>
+                
+                <button class="dark-gray" id="four">4</button>
+                <button class="dark-gray" id="five">5</button>
+                <button class="dark-gray" id="six">6</button>
+                <button class="orange" id="subtract">-</button>
+                
+                <button class="dark-gray" id="one">1</button>
+                <button class="dark-gray" id="two">2</button>
+                <button class="dark-gray" id="three">3</button>
+                <button class="orange" id="add">+</button>
+                
+                <button class="dark-gray zero" id="zero">0</button>
+                <button class="dark-gray" id="decimal">.</button>
+                <button class="orange" id="equals">=</button>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="stats">
+            <div class="stat-type-selector">
+                <h3>Selecione o tipo de cálculo:</h3>
+                <div class="stat-options">
+    <button class="stat-option-btn" data-stat-type="mean-ci">IC para Média</button>
+    <button class="stat-option-btn" data-stat-type="prop-ci">IC para Proporção</button>
+    <button class="stat-option-btn" data-stat-type="sample-mean">Amostra para Média</button>
+    <button class="stat-option-btn" data-stat-type="sample-prop">Amostra para Proporção</button>
+    <button class="stat-option-btn" data-stat-type="error-diff">Diferença de Erros</button>
+</div>
+            </div>
+            
+            <div class="stat-form hidden" id="mean-ci-form">
+                <h3>Intervalo de Confiança para Média</h3>
+                <div class="form-group">
+                    <label for="mean">Média Amostral (x̄)</label>
+                    <input type="number" id="mean" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="stdDev">Desvio Padrão (σ)</label>
+                    <input type="number" id="stdDev" step="any" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="sampleSize1">Tamanho da Amostra (n)</label>
+                    <input type="number" id="sampleSize1" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="confidenceLevel1">Nível de Confiança</label>
+                    <select id="confidenceLevel1">
+                        <option value="1.96">95%</option>
+                        <option value="1.645">90%</option>
+                        <option value="2.576">99%</option>
+                    </select>
+                </div>
+                <button class="stat-btn" onclick="calculateMeanCI()">Calcular</button>
+                <div class="result-box" id="meanResult">
+                    <div class="result-content"></div>
+                </div>
+                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+            </div>
+            
+            <div class="stat-form hidden" id="prop-ci-form">
+                <h3>Intervalo de Confiança para Proporção</h3>
+                <div class="form-group">
+                    <label for="sampleProp">Proporção Amostral (p)</label>
+                    <input type="number" id="sampleProp" step="any" min="0" max="1">
+                </div>
+                <div class="form-group">
+                    <label for="sampleSize2">Tamanho da Amostra (n)</label>
+                    <input type="number" id="sampleSize2" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="confidenceLevel2">Nível de Confiança</label>
+                    <select id="confidenceLevel2">
+                        <option value="1.96">95%</option>
+                        <option value="1.645">90%</option>
+                        <option value="2.576">99%</option>
+                    </select>
+                </div>
+                <button class="stat-btn" onclick="calculatePropCI()">Calcular</button>
+                <div class="result-box" id="propResult">
+                    <div class="result-content"></div>
+                </div>
+                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+            </div>
+            
+            <div class="stat-form hidden" id="sample-mean-form">
+                <h3>Tamanho de Amostra para Média</h3>
+                <div class="form-group">
+                    <label for="desiredMargin">Margem de Erro Desejada (E)</label>
+                    <input type="number" id="desiredMargin" step="any" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="popStdDev">Desvio Padrão Populacional (σ)</label>
+                    <input type="number" id="popStdDev" step="any" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="confidenceLevel3">Nível de Confiança</label>
+                    <select id="confidenceLevel3">
+                        <option value="1.96">95%</option>
+                        <option value="1.645">90%</option>
+                        <option value="2.576">99%</option>
+                    </select>
+                </div>
+                <button class="stat-btn" onclick="calculateSampleSizeMean()">Calcular</button>
+                <div class="result-box" id="sampleSizeMeanResult">
+                    <div class="result-content"></div>
+                </div>
+                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+            </div>
+            
+            <div class="stat-form hidden" id="sample-prop-form">
+                <h3>Tamanho de Amostra para Proporção</h3>
+                <div class="form-group">
+                    <label for="estimatedProp">Proporção Estimada (p)</label>
+                    <input type="number" id="estimatedProp" step="any" min="0" max="1">
+                </div>
+                <div class="form-group">
+                    <label for="desiredMarginProp">Margem de Erro Desejada (E)</label>
+                    <input type="number" id="desiredMarginProp" step="any" min="0" max="1">
+                </div>
+                <div class="form-group">
+                    <label for="confidenceLevel4">Nível de Confiança</label>
+                    <select id="confidenceLevel4">
+                        <option value="1.96">95%</option>
+                        <option value="1.645">90%</option>
+                        <option value="2.576">99%</option>
+                    </select>
+                </div>
+                <button class="stat-btn" onclick="calculateSampleSizeProp()">Calcular</button>
+                <div class="result-box" id="sampleSizePropResult">
+                    <div class="result-content"></div>
+                </div>
+                <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+            </div>
+
+            <div class="stat-form hidden" id="error-diff-form">
+                <h3>Cálculo de Diferença de Erros</h3>
+                <div class="form-group">
+        <label for="calculatedError">Margem de Erro Calculada</label>
+        <input type="number" id="calculatedError" step="any" min="0">
+    </div>
+    <div class="form-group">
+        <label for="desiredError">Erro Pretendido</label>
+        <input type="number" id="desiredError" step="any" min="0">
+    </div>
+    <button class="stat-btn" onclick="calculateErrorDifference()">Calcular Diferença</button>
+    <div class="result-box" id="errorDiffResult">
+        <div class="result-content"></div>
+    </div>
+    <button class="stat-btn back-btn" onclick="showStatSelector()">Voltar</button>
+</div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

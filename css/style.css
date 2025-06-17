@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f2f2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    background-image: url('../assets/267.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.calculator {
+    width: 380px;
+    background-color: #000;
+    border-radius: 34px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.display {
+    padding: 40px 20px 20px;
+    text-align: right;
+    color: white;
+    position: relative;
+}
+
+.display.hidden {
+    display: none;
+}
+
+.previous-operand {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    height: 24px;
+    overflow: hidden;
+}
+
+.current-operand {
+    font-size: 48px;
+    font-weight: 300;
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #000;
+}
+
+button {
+    border: none;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s;
+}
+
+button:active {
+    opacity: 0.7;
+}
+
+.gray {
+    background-color: #a5a5a5;
+    color: black;
+}
+
+.dark-gray {
+    background-color: #333;
+    color: white;
+}
+
+.orange {
+    background-color: #ff9f0a;
+    color: white;
+}
+
+.zero {
+    grid-column: span 2;
+    width: auto;
+    border-radius: 35px;
+    padding-left: 30px;
+    justify-content: flex-start;
+}
+
+.tabs {
+    display: flex;
+    background-color: #000;
+    padding: 0 10px;
+}
+
+.tab-btn {
+    padding: 17px;
+    background-color: #333;
+    color: white;
+    border: none;
+    font-size: 16px;
+    width: 160px;
+    margin: 10px;
+    height: 10%;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background-color: #ff9f0a;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #1c1c1e;
+    color: white;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Estilos para a parte estatística */
+.stat-type-selector {
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+.stat-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+.stat-option-btn {
+    background-color: #ff9f0a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 20px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 135px;
+    transition: all 0.3s;
+    min-height: 80px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.stat-option-btn:hover {
+    background-color: #e68a00;
+    transform: scale(1.03);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.stat-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #2c2c2e;
+    color: white;
+}
+
+.stat-btn {
+    background-color: #ff9f0a;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    width: 109px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.result-box {
+    background-color: #2c2c2e;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;
+    display: none;
+}
+
+.result-content {
+    color: white;
+    font-size: 14px;
+}
+
+.result-value {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ff9f0a;
+}
+
+.formula-box {
+    background-color: #3a3a3c;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.formula {
+    font-family: monospace;
+    font-size: 16px;
+    color: #ff9f0a;
+}
+
+.note {
+    font-style: italic;
+    color: #a5a5a5;
+    margin-top: 10px;
+}
+
+/* Botão de voltar */
+.back-btn {
+    background-color: #333;
+    margin-top: 10px;
+}
+
+.back-btn:hover {
+    background-color: #444;
+}
+
+.positive-difference {
+    color: #ff3b30; /* Vermelho para diferença positiva */
+    font-weight: bold;
+}
+
+.negative-difference {
+    color: #34c759; /* Verde para diferença negativa */
+    font-weight: bold;
+}
+
+.formula-box {
+    background-color: #3a3a3c;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.formula {
+    font-family: monospace;
+    font-size: 16px;
+    color: #ff9f0a;
+}
